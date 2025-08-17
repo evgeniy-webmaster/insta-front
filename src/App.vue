@@ -1,17 +1,35 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <q-layout view="lHh Lpr lFf">
+    <q-header elevated>
+      <q-toolbar>
+        <q-btn flat dense round icon="sym_o_menu" aria-label="Menu" />
+        <q-toolbar-title>Quasar + Vite</q-toolbar-title>
+        <q-btn flat dense round icon="sym_o_settings" />
+      </q-toolbar>
+    </q-header>
+
+    <q-page-container>
+      <q-page class="q-pa-md">
+        <div class="row q-col-gutter-md">
+          <div class="col-12">
+            <q-card>
+              <q-card-section class="text-h6">
+                Добро пожаловать в Quasar
+              </q-card-section>
+              <q-separator />
+              <q-card-section>
+                <q-btn color="primary" icon="sym_o_home" label="Главная" class="q-mr-sm" />
+                <q-btn color="secondary" outline icon="sym_o_search" label="Поиск" />
+              </q-card-section>
+            </q-card>
+          </div>
+        </div>
+      </q-page>
+    </q-page-container>
+  </q-layout>
 </template>
 
 <style scoped>

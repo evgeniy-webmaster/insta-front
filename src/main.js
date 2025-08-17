@@ -1,5 +1,9 @@
 import { createApp } from 'vue'
-import './style.css'
 import App from './App.vue'
+import { Quasar } from 'quasar'
+import iconSet from 'quasar/icon-set/material-symbols-outlined'
+import 'quasar/dist/quasar.css'
 
-createApp(App).mount('#app')
+createApp(App)
+  .use(Quasar, { iconSet })
+  .mount('#app')
