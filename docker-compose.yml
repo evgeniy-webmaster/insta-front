@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  dev:
+    image: node:20-alpine
+    working_dir: /app
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./:/app
+      - node_modules:/app/node_modules
+    command: sh -lc "npm install && npm run dev -- --host 0.0.0.0 --port 5173 --strictPort"
+
+  build:
+    image: node:20-alpine
+    working_dir: /app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./:/app
+      - node_modules_build:/app/node_modules
+    command: sh -lc "npm ci && npm run build"
+
+  preview:
+    image: node:20-alpine
+    working_dir: /app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./:/app
+      - node_modules_build:/app/node_modules
+    ports:
+      - "4173:4173"
+    command: sh -lc "npm run preview -- --host 0.0.0.0 --port 4173 --strictPort"
+
+volumes:
+  node_modules:
+  node_modules_build:

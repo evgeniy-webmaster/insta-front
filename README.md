@@ -1,5 +1,65 @@
-# Vue 3 + Vite
+## Разработка и сборка в Docker
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Этот проект — Vue 3 + Vite (c Quasar плагином). Для разработки и сборки локальная версия Node.js не требуется — всё работает в контейнере Docker.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+### Требования
+- Docker и Docker Compose v2
+
+### Быстрый старт (разработка)
+1. Запустите окружение:
+   
+   ```bash
+   docker compose up dev
+   ```
+2. Откройте в браузере `http://localhost:5173`.
+3. Горячая перезагрузка (HMR) включена. Зависимости установятся автоматически при первом запуске.
+
+### Установка/обновление зависимостей
+- **Добавить пакет**:
+  
+  ```bash
+  docker compose exec dev npm i <package>
+  ```
+- **Добавить dev-зависимость**:
+  
+  ```bash
+  docker compose exec dev npm i -D <package>
+  ```
+
+### Сборка для продакшена
+1. Соберите проект (чистая установка зависимостей + build):
+   
+   ```bash
+   docker compose run --rm build
+   ```
+2. Готовые артефакты будут в каталоге `dist/`. Их можно раздавать любым статическим сервером (Nginx, CDN и т.п.).
+
+### Предпросмотр собранной версии (опционально)
+1. Убедитесь, что каталог `dist/` существует (выполните сборку, если нужно).
+2. Запустите локальный предпросмотр:
+   
+   ```bash
+   docker compose up preview
+   ```
+3. Откройте `http://localhost:4173`.
+
+### Полезные команды
+- **Открыть шелл в контейнере разработки**:
+  
+  ```bash
+  docker compose exec dev sh
+  ```
+- **Остановить контейнеры**:
+  
+  ```bash
+  docker compose down
+  ```
+- **Полностью очистить тома с зависимостями (node_modules)**:
+  
+  ```bash
+  docker compose down -v
+  ```
+
+### Примечания
+- Vite в контейнере запускается с параметрами `--host 0.0.0.0 --port 5173 --strictPort` для доступа с хоста.
+- Включён `CHOKIDAR_USEPOLLING=true` для надёжного отслеживания изменений файлов в смонтированном каталоге.
