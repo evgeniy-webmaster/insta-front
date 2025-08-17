@@ -1,30 +1,34 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from 'vue'
+const counter = ref(0)
 </script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <q-layout view="lHh Lpr lFf">
+    <q-header elevated>
+      <q-toolbar>
+        <q-btn flat dense round icon="menu" aria-label="Menu" />
+        <q-toolbar-title>Quasar + Vue 3</q-toolbar-title>
+        <q-btn color="primary" icon="add" label="Add" @click="counter++" />
+      </q-toolbar>
+    </q-header>
+
+    <q-page-container>
+      <div class="q-pa-md">
+        <q-card>
+          <q-card-section>
+            <div class="text-h6">Counter</div>
+            <div class="text-subtitle2">Current count: {{ counter }}</div>
+          </q-card-section>
+          <q-separator inset />
+          <q-card-actions align="right">
+            <q-btn color="primary" icon="add" label="Increment" @click="counter++" />
+          </q-card-actions>
+        </q-card>
+      </div>
+    </q-page-container>
+  </q-layout>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
 </style>
